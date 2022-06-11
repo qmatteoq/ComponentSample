@@ -167,4 +167,12 @@
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22000.197\build\Microsoft.Windows.SDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22000.197\build\Microsoft.Windows.SDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22000.197\build\Microsoft.Windows.SDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22000.197\build\Microsoft.Windows.SDK.BuildTools.targets'))" />
   </Target>
+  <Target Name="GetPriIndexName">
+    <PropertyGroup>
+      <!-- Winmd library targets use the default root namespace of the project for the App package name -->
+      <PriIndexName Condition="'$(RootNamespace)' != ''">$(RootNamespace)</PriIndexName>
+      <!-- If RootNamespace is empty fall back to TargetName -->
+      <PriIndexName Condition="$(PriIndexName) == ''">$(TargetName)</PriIndexName>
+    </PropertyGroup>
+  </Target>
 </Project>
